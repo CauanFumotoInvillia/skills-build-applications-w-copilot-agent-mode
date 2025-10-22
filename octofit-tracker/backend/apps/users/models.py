@@ -1,9 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 class User(AbstractUser):
     # Additional fields can be added here
-    pass
+        groups = models.ManyToManyField(Group, blank=True, related_name='customuser_set')
+        user_permissions = models.ManyToManyField(Permission, blank=True, related_name='customuser_permissions_set')
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
