@@ -1,10 +1,11 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from rest_framework import routers
+from .views import TeamViewSet, TeamActivityViewSet
+
+router = routers.DefaultRouter()
+router.register(r'', TeamViewSet, basename='team')
+router.register(r'activities', TeamActivityViewSet, basename='teamactivity')
 
 urlpatterns = [
-    path('', views.TeamListView.as_view(), name='team-list'),
-    path('create/', views.TeamCreateView.as_view(), name='team-create'),
-    path('<int:pk>/', views.TeamDetailView.as_view(), name='team-detail'),
-    path('<int:pk>/update/', views.TeamUpdateView.as_view(), name='team-update'),
-    path('<int:pk>/delete/', views.TeamDeleteView.as_view(), name='team-delete'),
+    path('', include(router.urls)),
 ]

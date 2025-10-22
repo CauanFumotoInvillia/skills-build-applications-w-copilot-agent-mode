@@ -1,7 +1,13 @@
 from django.contrib import admin
-from .models import *
+from .models import User, Profile
 
-# Register your models here
 
-# Example:
-# admin.site.register(User)
+@admin.register(User)
+class CustomUserAdmin(admin.ModelAdmin):
+	list_display = ('id', 'username', 'email', 'team')
+	search_fields = ('username', 'email')
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+	list_display = ('id', 'user', 'bio')

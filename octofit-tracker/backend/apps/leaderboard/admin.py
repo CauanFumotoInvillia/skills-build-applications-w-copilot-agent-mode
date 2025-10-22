@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import *
+from .models import LeaderboardEntry
 
-# Register your models here
 
-# Example:
-# admin.site.register(LeaderboardEntry)
+@admin.register(LeaderboardEntry)
+class LeaderboardEntryAdmin(admin.ModelAdmin):
+
+    list_display = ('_id', 'user', 'score', 'date')
+    search_fields = ('user__username',)

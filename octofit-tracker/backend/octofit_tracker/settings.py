@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djongo',
     'corsheaders',
+    'octofit_tracker',
     'apps.users',
     'apps.activities',
     'apps.teams',

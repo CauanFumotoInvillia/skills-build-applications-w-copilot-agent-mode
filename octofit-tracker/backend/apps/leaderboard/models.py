@@ -1,8 +1,9 @@
-from django.db import models
+from djongo import models
 from django.contrib.auth.models import User
 
 class LeaderboardEntry(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    _id = models.ObjectIdField(primary_key=True, db_column='_id')
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     score = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
 

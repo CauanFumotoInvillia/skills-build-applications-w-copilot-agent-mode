@@ -1,6 +1,10 @@
 from rest_framework import serializers
+from .models import LeaderboardEntry
 
-class LeaderboardEntrySerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    name = serializers.CharField(max_length=100)
-    score = serializers.IntegerField()
+
+class LeaderboardEntrySerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username', read_only=True)
+
+    class Meta:
+        model = LeaderboardEntry
+        fields = ['id', 'user', 'score', 'date']
