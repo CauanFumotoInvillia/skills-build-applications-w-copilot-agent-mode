@@ -1,6 +1,10 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from . import views
 
+router = routers.DefaultRouter()
+router.register(r'', views.LeaderboardViewSet, basename='leaderboard')
+
 urlpatterns = [
-    path('', views.LeaderboardStubView.as_view(), name='leaderboard-stub'),
+    path('', include(router.urls)),
 ]

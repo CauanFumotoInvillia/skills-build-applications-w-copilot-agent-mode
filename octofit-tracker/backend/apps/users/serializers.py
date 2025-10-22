@@ -3,12 +3,16 @@ from .models import User, Profile  # Assuming the User model is defined in model
 
 
 class UserSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='_id', read_only=True)
+    # serialize the team's ObjectId as a string to avoid JSON encoding errors
+    team = serializers.CharField(source='team._id', read_only=True)
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'team']
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(source='_id', read_only=True)
     class Meta:
         model = User
         fields = ['username', 'email', 'password', 'first_name', 'last_name', 'team']
