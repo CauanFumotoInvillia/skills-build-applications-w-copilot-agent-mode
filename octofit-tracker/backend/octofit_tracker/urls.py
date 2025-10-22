@@ -2,13 +2,23 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
+import os
+
+
 
 def api_root(request):
+    codespace = os.environ.get('CODESPACE_NAME')
+    if codespace:
+        base = f'https://{codespace}-8000.app.github.dev'
+    else:
+        # fall back to request host
+        base = f'{request.scheme}://{request.get_host()}'
+
     return JsonResponse({
-        'users': '/api/users/',
-        'activities': '/api/activities/',
-        'teams': '/api/teams/',
-        'leaderboard': '/api/leaderboard/',
+        'users': f"{base}/api/users/",
+        'activities': f"{base}/api/activities/",
+        'teams': f"{base}/api/teams/",
+        'leaderboard': f"{base}/api/leaderboard/",
     })
 
 urlpatterns = [

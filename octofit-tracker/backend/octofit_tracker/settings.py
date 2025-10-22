@@ -25,7 +25,11 @@ SECRET_KEY = 'your-secret-key'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+CODESPACE_NAME = os.environ.get('CODESPACE_NAME')
+if CODESPACE_NAME:
+    ALLOWED_HOSTS = [f"{CODESPACE_NAME}-8000.app.github.dev", 'localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -137,6 +141,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ['*']
 CORS_ALLOW_METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
+
+# Django REST Framework minimal settings
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    # Intentionally minimal for local development and tests
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+}
 
 # Authentication settings
 ACCOUNT_EMAIL_VERIFICATION = 'none'
